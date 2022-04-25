@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>exo 4.5</title>
+  </head>
+  <body>
+    <select name="age" id="age">
+      <option selected>Choisir un age</option>
+      <script>
+        for (let i = 1; i <= 100; i++) {
+          document.write('<option value="' + i + '">' + i + "</option>");
+        }
+      </script>
+    </select>
+
+    <select name="sexe" id="sexe">
+        <option selected>Choisir un genre</option>
+        <option value="h">Homme</option>
+        <option value="f">Femme</option>
+    </select>
+
+    <button id="send">Envoyer</button>
+
+    <p id="result"></p>
+    <script src="./assets/js/script4.5.js" defer></script>
+  </body>
+</html>
