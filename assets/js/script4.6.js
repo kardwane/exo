@@ -8,10 +8,10 @@ check.addEventListener("click", () => {
   // ballotage
   if (
     score1.value >= 12.5 &&
-    score1.value < 50 &&
-    score2.value < 50 &&
-    score3.value < 50 &&
-    score4.value < 50
+    score1.value <= 50 &&
+    score2.value <= 50 &&
+    score3.value <= 50 &&
+    score4.value <= 50
   ) {
     // favorable?
     if (
