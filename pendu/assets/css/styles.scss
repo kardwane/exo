@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+main{
+    height: 90vh;
+    margin: 0 auto;
+}
+
+#btnLetters{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hangman-step {
+    margin: 1em auto;
+    padding-top: 1em;
+    width: 140px;
+    height: 130px;
+    background-image: url('../img/Le-Pendu-one-line-removebg-preview.png');
+    background-position: 2% 60%;
+    overflow: hidden;
+    transition-property: background-position;
+    transition-duration: 1s;
+    transition-delay: 0.1s;
+    background-color: darkgreen;
+}
