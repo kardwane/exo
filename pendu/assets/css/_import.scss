@@ -1,0 +1,17 @@
+$appGreen: rgba(0,128,0,0.8);
+
+@mixin endmessage {
+    font-family: cursive;
+    font-size: 3em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $appGreen;
+    border-radius: 3%;
+    padding: 0.5rem;
+    img{
+        margin-left: 2em;
+        height: 20vh;
+    }
+}

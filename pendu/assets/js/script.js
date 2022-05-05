@@ -1,166 +1,144 @@
-const words = [
-	"javascript",
-	"html",
-	"developpeur",
-	"bronchopneumopathie",
-	"anticonstitutionellement",
-];
+const words = ["tonneaux", "gomme", "presidentielle", "vietnam", "javascript", "jeux", "aragorn", "xylophone"];
 const endgame = 7;
-const spanwtf = document.querySelector("#spanWtf");
-const btnLetters = document.querySelector("#btnLetters");
+const maskedWord = document.querySelector("#maskedWord");
+const vKeyboard = document.querySelector("#vKeyboard");
+const hangmanStep = document.querySelector("#hangmanStep");
 const letters = "azertyuiopqsdfghjklmwxcvbn";
-const hangmanstep = document.querySelector(".hangman-step");
 
-let randomIndex, wordTofind, fail;
+let randomIndex, wordToFind, fail;
 
 const init = () => {
-	randomIndex = Math.ceil(Math.random() * words.length - 1);
-	wordTofind = words[randomIndex];
-	console.log(wordTofind);
-	fail = 0;
-	spanwtf.innerHTML = createMaskedWord();
-	createVirutalKeyboard();
-	document.querySelector("#restart").textContent = "";
-    hangmanstep.style.backgroundPosition = "2% 60%";
-};
-
-const createMaskedWord = () => {
-	let newMaskedWord = "";
-	for (let i = 0; i < wordTofind.length; i++) {
-		newMaskedWord += "*";
-	}
-	return newMaskedWord;
-};
-
-const createVirutalKeyboard = () => {
-	btnLetters.innerHTML = "";
-	for (let i = 0; i < letters.length; i++) {
-		const newBtnLetter = document.createElement("button");
-		newBtnLetter.textContent = letters[i].toUpperCase();
-		newBtnLetter.id = "btn" + letters[i];
-		newBtnLetter.onclick = () => {
-			checkLetter(letters[i]);
-		};
-		btnLetters.appendChild(newBtnLetter);
-	}
-};
-
-const checkLetter = (letter) => {
-	//je desactive le bouton joué
-	document.querySelector("#btn" + letter).disabled = true;
-	//je verifie si la lettre proposé appartient au mot ou non
-	if (wordTofind.indexOf(letter) !== -1) {
-		//la lettre appartient au mot
-		winTurn(letter);
-	} else {
-		//la lettre n'appartient pas au mot
-		loseTurn();
-	}
-};
-
-const winTurn = (letter) => {
-	//je met à jour les lettres découvertes
-	let newMaskedWord = updateMaskedWord(spanwtf.textContent, letter);
-	spanwtf.textContent = newMaskedWord;
-	console.log(newMaskedWord, wordTofind);
-	//la partie est gagné?
-	if (newMaskedWord === wordTofind) {
-		const winMusic = new Audio(
-			"./assets/sound/mixkit-animated-small-group-applause-523.wav"
-		);
-		winMusic.play();
-		showRestartButton(true);
-	}
-};
-
-const loseTurn = () => {
-	fail++;
-	
-	switch (fail) {
-		case 1:
-			hangmanstep.style.backgroundPosition = "16% 60%";
-			break;
-		case 2:
-			hangmanstep.style.backgroundPosition = "29% 60%";
-			break;
-		case 3:
-			hangmanstep.style.backgroundPosition = "43% 60%";
-			break;
-		case 4:
-			hangmanstep.style.backgroundPosition = "57% 60%";
-			break;
-		case 5:
-			hangmanstep.style.backgroundPosition = "70% 60%";
-			break;
-		case 6:
-			hangmanstep.style.backgroundPosition = "84% 60%";
-			break;
-		case 7:
-			hangmanstep.style.backgroundPosition = "99% 60%";
-			break;
-		default:
-			hangmanstep.style.backgroundPosition = "2% 60%";
-	}
-
-    console.log(fail, endgame);
-
-	//fin de partie : defaite?
-	if (fail === endgame) {
-		const looseMusic = new Audio(
-			"./assets/sound/mixkit-player-losing-or-failing-2042.wav"
-		);
-
-		looseMusic.play();
-		showRestartButton(false);
-	}
-};
-
-const showRestartButton = function (result) {
-	const restartBtn = document.createElement("button");
-	restartBtn.textContent = "Recommencer";
-	restartBtn.addEventListener("click", function () {
-		init();
-	});
-	document.querySelector("#restart").appendChild(restartBtn);
-	createEndMessage(result);
-};
-
-const createEndMessage = (result) => {
-	const newP = document.createElement("p");
-	newP.innerHTML =
-		'Vous avez gagné <img src="https://media2.giphy.com/media/lnyPptAfGwHeTdoQDk/giphy.gif?cid=ecf05e47i6s88fufl369lmxlxixeqtawrobjyz2e2rouhfpe&rid=giphy.gif&ct=g"/>';
-	if (!result) {
-		//if (result === false)
-		newP.innerHTML =
-			"Vous avez perdu, le mot à trouver était : " +
-			wordTofind +
-			' <img src="https://media4.giphy.com/media/QmGNyXP5MRFgeFERPd/giphy.gif?cid=ecf05e47noe95fuwwg8v1ifpx1eve59xlwoapg1zm4k5uutr&rid=giphy.gif&ct=g"/>';
-	}
-
-	btnLetters.innerHTML = "";
-	btnLetters.appendChild(newP);
+    randomIndex = Math.floor(Math.random() * (words.length - 1));
+    wordToFind = words[randomIndex];
+    fail = 0;
+    maskedWord.innerHTML = createMaskedWord();
+    createVirtualKeyboard();
+    document.querySelector(".restart").textContent = "";
+    hangmanStep.style.backgroundPosition = "2% 60%";
 };
 
 const updateMaskedWord = (wordToShow, letter) => {
-	let newMaskedWord = "";
-	for (let i = 0; i < wordTofind.length; i++) {
-		if (letter == wordTofind[i]) {
-			newMaskedWord += letter;
-		} else {
-			newMaskedWord += wordToShow[i];
-		}
-	}
-	return newMaskedWord;
+    let newMaskedWord = "";
+    for (let i = 0; i < wordToFind.length; i++) {
+        if (letter === wordToFind[i]) {
+            newMaskedWord += letter;
+        } else {
+            newMaskedWord += wordToShow[i];
+        }
+    }
+    return newMaskedWord;
 };
 
-window.addEventListener('keyup', (e)=>{
-    //si la touche est une lettre de l'alphabet ( et pas un f5 ou enter ou autre...)
-    const allLetters = "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
-    const minuscule = e.key.toLowerCase();
-    if(allLetters.indexOf(e.key) !== -1){
-        checkLetter(minuscule);
+const createMaskedWord = () => {
+    let newMaskedWord = "";
+    for (let i = 0; i < wordToFind.length; i++) {
+        newMaskedWord += "*";
     }
-})
+    return newMaskedWord;
+};
 
-//permet d'initialiser le jeux
+const createEndMessage = (isWinner) => {
+    let cssClass = "endmessagev";
+    const newP = document.createElement("p");
+    newP.innerHTML = 'Vous avez gagné <img src="https://media2.giphy.com/media/lnyPptAfGwHeTdoQDk/giphy.gif?cid=ecf05e47i6s88fufl369lmxlxixeqtawrobjyz2e2rouhfpe&rid=giphy.gif&ct=g"/>';
+    if (!isWinner) {
+        cssClass = "endmessaged";
+        newP.innerHTML =
+            "Vous avez perdu, le mot à trouver était : " + wordToFind +
+            ' <img src="https://media4.giphy.com/media/QmGNyXP5MRFgeFERPd/giphy.gif?cid=ecf05e47noe95fuwwg8v1ifpx1eve59xlwoapg1zm4k5uutr&rid=giphy.gif&ct=g"/>';
+    }
+    newP.classList.add(cssClass);
+    vKeyboard.innerHTML = "";
+    vKeyboard.appendChild(newP);
+};
+
+const showRestartButton = (result) => {
+    const restart = document.createElement("button");
+    restart.innerHTML = "Recommencer";
+    restart.onclick = () => {
+        init();
+    };
+    document.querySelector(".restart").appendChild(restart);
+    createEndMessage(result);
+};
+
+const winTurn = (letter) => {
+    let newMaskedWord = updateMaskedWord(maskedWord.innerHTML, letter);
+    maskedWord.innerHTML = newMaskedWord;
+    if (newMaskedWord === wordToFind) {
+        const victoire = new Audio(
+            "./assets/sound/mixkit-animated-small-group-applause-523.wav"
+        );
+        victoire.play();
+        showRestartButton(true);
+    }
+};
+
+const looseTurn = () => {
+    fail++;
+    document.querySelector("#spanll").innerHTML = endgame - fail;
+    switch (fail) {
+        case 1:
+            hangmanStep.style.backgroundPosition = "16% 60%";
+            break;
+        case 2:
+            hangmanStep.style.backgroundPosition = "29% 60%";
+            break;
+        case 3:
+            hangmanStep.style.backgroundPosition = "43% 60%";
+            break;
+        case 4:
+            hangmanStep.style.backgroundPosition = "57% 60%";
+            break;
+        case 5:
+            hangmanStep.style.backgroundPosition = "70% 60%";
+            break;
+        case 6:
+            hangmanStep.style.backgroundPosition = "84% 60%";
+            break;
+        case 7:
+            hangmanStep.style.backgroundPosition = "99% 60%";
+            break;
+        default:
+            hangmanStep.style.backgroundPosition = "2% 60%";
+    }
+    if (fail === endgame) {
+        const defaite = new Audio(
+            "./assets/sound/mixkit-player-losing-or-failing-2042.wav"
+        );
+        defaite.play();
+        showRestartButton(false);
+    }
+};
+
+const checkLetter = (letter) => {
+    document.querySelector("#btn" + letter).disabled = true;
+    if (wordToFind.indexOf(letter) !== -1) {
+        winTurn(letter);
+    } else {
+        looseTurn();
+    }
+    return true;
+};
+
+const createVirtualKeyboard = () => {
+    vKeyboard.innerHTML = "";
+    for (let i = 0; i < letters.length; i++) {
+        let newBtnLetter = document.createElement("button");
+        newBtnLetter.innerHTML = letters[i].toUpperCase();
+        newBtnLetter.id = "btn" + letters[i];
+        newBtnLetter.classList.add("btn-letter");
+        newBtnLetter.onclick = () => {
+            checkLetter(letters[i]);
+        };
+        vKeyboard.appendChild(newBtnLetter);
+    }
+};
+
+window.document.body.onkeyup = (e) => {
+    if (letters.match(e.key)) {
+        if (!document.querySelector("#btn" + e.key).disabled) checkLetter(e.key);
+    }
+};
+
 init();

@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/styles.css">
-</head>
-<body>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendu</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
     <main>
-    <div id="wtf">
-        <p>mot à trouver</p>
-        <span id="spanWtf"></span>
-    </div>
-    <!-- <div id="tryLeft">
-        <p>Essais restants</p>
-        <span id="spanTl"></span>
-    </div> -->
-    <section class="hangman-section">
-        <div class="hangman-step"></div>
-    </section>
-    <div id="restart">
-
-    </div>
-    <section id="btnLetters">
-
-    </section>
-</main>
-<script src="./assets/js/script.js" defer></script>
-</body>
+      <section id="maskedword-section">
+        <div>
+          <p>Mot a trouver :</p>
+          <span id="maskedWord"></span>
+        </div>
+        <div>
+          <p>Trouve le mot ou perd!s</p>
+        </div>
+      </section>
+      <section id="hangmanSection">
+        <div id="hangmanStep"></div>
+      </section>
+      <div class="restart"></div>
+      <section id="keyboardSection">
+        <div id="vKeyboard"></div>
+      </section>
+    </main>
+    <script src="./assets/js/script.js" defer></script>
+  </body>
 </html>
