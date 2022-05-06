@@ -53,4 +53,15 @@ request.onload = function() {
       section.appendChild(myArticle);
     }
   }
+
+/*  
+  const myVar = 15;
+  const myVar2 = "il est "+myVar+" heure"
+  console.log(myVar2)
+  // const myVar2 = "il est ";
+  // myVar2.concat(myVar+" heure");
+  const myVar3 = `il est ${myVar} heure`;
+  console.log(myVar3) 
+  */
+  
   
