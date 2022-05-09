@@ -1,5 +1,13 @@
-let arrNumber = [12, 56, 54, 87, 56, 23, 45, 89, 32, 9, 15, 97, 3];
+const arrNumber = [12, 56, 54, 87, 56, 23, 45, 89, 32, 9, 15, 97, 3];
 
+// let arrDesc = arrNumber.sort( compare(a, b))
+
+let nombres = [4, 2, 5, 1, 3];
+nombres.sort((a, b) => a < b);
+console.log(nombres);
+
+/* 
+const arrNumber = [12.5, 56.2, 54, 87, 56.7, 23, 45, 89, 32.5, 9, 15, 97, 3];
 function bubbleSortAsc(arr) {
 	for (let i = 0; i < arr.length; i++) {
 		let swapped = false;
@@ -11,7 +19,7 @@ function bubbleSortAsc(arr) {
 				arr[j + 1] = temp;
 			}
 		}
-		if (swapped !== true) break;
+		if (!swapped) break;
 	}
 	return arr;
 }
@@ -32,23 +40,16 @@ function bubbleSortDesc(arr) {
 	return arr;
 }
 
-function displayArr(arr, div) {
-	let tabTxt = "";
-	arr.forEach((value) => {
-		tabTxt += value + " | ";
-	});
-	console.log(tabTxt);
 
-	document.querySelector("#"+div).innerHTML = tabTxt;
-}
 
 //initial
 displayArr(arrNumber, "unsortedArr");
 
 //croissant
-arrAsc = bubbleSortAsc(arrNumber)
+let arrAsc = bubbleSortAsc(arrNumber)
 displayArr(arrAsc, "sortedArrAsc");
 
 //décroissant
-arrDesc = bubbleSortDesc(arrNumber)
+let arrDesc = bubbleSortDesc(arrNumber)
 displayArr(arrDesc, "sortedArrDesc");
+ */
