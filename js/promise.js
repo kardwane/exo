@@ -62,6 +62,8 @@ document.querySelector("#searchCountry").onsubmit = (e) => {
 //appel de la methode
 // getCountries();
 
+/*
+//version create element
 const getCountry = async (name) => {
 	//je vide la zone de resultat
 	document.querySelector("#result").innerHTML = "";
@@ -115,6 +117,7 @@ const getCountry = async (name) => {
 		for (lang in country.languages) {
 			lstLng.push(country.languages[lang]);
 		}
+        console.log(lstLng);
 
 		const pLang = document.createElement("p");
 		pLang.classList.add("card-text");
@@ -148,6 +151,65 @@ const getCountry = async (name) => {
 
 		divCountry.appendChild(cardBody);
 		document.querySelector("#result").appendChild(divCountry);
+	});
+};
+*/
+
+const result = document.querySelector("#result");
+
+//version string literal + destructuration
+const getCountry = async (name) => {
+	//je vide la zone de resultat
+	result.innerHTML = "";
+	//je recupere la réponse de l'api pays
+	const url = await fetch(`https://restcountries.com/v3.1/name/${name}`);
+	//je transforme le resultat en JSON
+	const response = await url.json();
+
+	response.forEach((country) => {
+		let gentile = "";
+		if (country.demonyms["fra"]) {
+			gentile =
+				country.demonyms["fra"]["m"] + " et " + country.demonyms["fra"]["f"];
+		}
+
+		const objLanguages = Object(country.languages);
+		let lstLng = "";
+		for (lang in objLanguages) {
+			lstLng += lang + ", ";
+		}
+
+		const objCur = Object(country.currencies);
+		let lstCur = "";
+		for (currencie in objCur) {
+			lstCur +=
+				country.currencies[currencie]["name"] + " (" + country.currencies[currencie]["symbol"] + ")";
+		}
+
+		const countryCard = `
+        <div class="card mb-2">
+            <img
+                src="${country.flags.png}"
+                class="rounded mx-auto d-block mt-2"
+            />
+            <div class="card-body">
+                <h5 class="card-title">${country.name.common}</h5>
+                <p class="card-text">Nom FR : ${country.translations.fra.official}</p>
+                <p class="card-text">Gentilé : ${gentile}</p>
+                <p class="card-text">Population : ${country.population} habitants</p>
+                <p class="card-text">Superficie : ${country.area} km²</p>
+                <p class="card-text">Langue(s) : ${lstLng}</p>
+                <p class="card-text">Nom monnaie : ${lstCur}<br /></p>
+                <a
+                    href="${country.maps.openStreetMaps}"
+                    target="_blank"
+                    class="btn btn-info"
+                    >Voir sur la carte du monde</a
+                >
+            </div>
+        </div>
+        `;
+		result.innerHTML += countryCard;
 	});
 };
 
