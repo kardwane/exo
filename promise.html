@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script src="js/promise.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			rel="stylesheet"
+			href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+		/>
+	</head>
+	<body>
+		<main class="container p-3 text-center bg-light">
+			<form action="#" method="post" id="searchCountry">
+				<h2>Rechercher un pays</h2>
+				<input
+					type="text"
+					name="country"
+					id="country"
+					class="form-control m-2"
+					placeholder="Enter the country you're looking for"
+				/>
+				<button type="submit" class="btn btn-primary m-2 p-2">
+					Rechercher
+				</button>
+			</form>
+			<!-- <div id="result" class="visually-hidden"> -->
+			<div id="result" class="pt-3">
+				<div id="countryTitle"></>
+                <p><img src="" alt="flag" class="img-fluid" id="countryFlag"></p>
+                <div class="">
+                    <p id="counryFrName"> </p>
+                </div>
+                <p id="population"></p>
+				<p id="superficie"></p>
+				<div>
+                    <p id="languages"></p>
+                </div>
+			</div>
+		</main>
+		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+		<script src="js/promise.js" defer></script>
+	</body>
 </html>
